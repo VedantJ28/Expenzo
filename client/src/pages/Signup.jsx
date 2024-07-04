@@ -1,4 +1,36 @@
+import { useState } from "react";
+import axios from 'axios';
+
 export const Signup = () => {
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+    });
+
+    const { name, email, password } = formData;
+
+    const onChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            };
+            const body = JSON.stringify(formData);
+            const res = await axios.post('http://localhost:3000/api/auth/register', body, config);
+            console.log(res.data); // Handle response as needed
+        } catch (error) {
+            console.error(error.response.data); // Handle error as needed
+        }
+    };
+
     return (
         <>
             <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -15,7 +47,7 @@ export const Signup = () => {
                 </div>
                 <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                     <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                        <form className="space-y-6" action="#" method="POST">
+                        <form className="space-y-6" onSubmit={onSubmit}>
                         <div>
                                 <label
                                     htmlFor="name"
@@ -27,9 +59,11 @@ export const Signup = () => {
                                     <input
                                         id="name"
                                         name="name"
-                                        type="string"
+                                        value={name}
+                                        type="text"
                                         autoComplete="name"
                                         required=""
+                                        onChange={onChange}
                                         className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                         placeholder="Enter your name"
                                     />
@@ -47,8 +81,10 @@ export const Signup = () => {
                                         id="email"
                                         name="email"
                                         type="email"
+                                        value={email}
                                         autoComplete="email"
                                         required=""
+                                        onChange={onChange}
                                         className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                         placeholder="Enter your email address"
                                     />
@@ -66,8 +102,10 @@ export const Signup = () => {
                                         id="password"
                                         name="password"
                                         type="password"
+                                        value={password}
                                         autoComplete="current-password"
                                         required=""
+                                        onChange={onChange}
                                         className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                         placeholder="Enter your password"
                                     />
