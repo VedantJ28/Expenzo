@@ -4,6 +4,7 @@ const {db} = require("./DB/db");
 
 const transactionsRouter = require('./routes/transactions');
 const usersRouter = require('./routes/users');
+const authRouter = require("./routes/authRoutes");
 
 require("dotenv").config();
 
@@ -18,6 +19,7 @@ app.use(cors());
 //routes
 app.use('/api/transactions', transactionsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 
 //server
 const server = () =>{
