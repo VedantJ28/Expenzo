@@ -5,21 +5,21 @@ require("dotenv").config();
 
 const JWT_KEY = process.env.JWT_KEY;
 
-//register
-exports.register = async (req,res) =>{
+// Register
+exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
-    try{
-        let user = await User.findOne({email});
-        if(user){
-            return res.status(400).json({msg: "User already exists"});
+    try {
+        let user = await User.findOne({ email });
+        if (user) {
+            return res.status(400).json({ msg: "User already exists" });
         }
 
-        //hasing password
+        // Hashing password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        //create a new user
+        // Create a new user
         user = new User({
             name,
             email,
@@ -28,60 +28,60 @@ exports.register = async (req,res) =>{
 
         await user.save();
 
-        res.status(201).json({msg: "User registered Successfully"});
+        res.status(201).json({ msg: "User registered Successfully" });
 
-    }
-    catch(error){
-        res.status(500).json({error: error.message});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
     }
 }
 
-//login
-exports.login = async (req,res) => {
-    const {email , password} = req.body;
+// Login
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
 
-    try{
+    try {
         const user = await User.findOne({ email });
-        if(!user){
-            return res.status(400).json({ msg: "Email not found"});
+        if (!user) {
+            return res.status(400).json({ msg: "Email not found" });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if(!isMatch){
+        if (!isMatch) {
             return res.status(400).json({ msg: "Invalid credentials" });
         }
 
-        //generate JWT
+        // Generate JWT
         const payload = {
             user: {
                 id: user.id,
             },
         };
 
-        jwt.sign(payload, JWT_KEY, {expiresIn: "1h"}, (err,token) =>{
-            if(err) throw err;
+        jwt.sign(payload, JWT_KEY, { expiresIn: "1h" }, (err, token) => {
+            if (err) throw err;
             res.json({ token });
         });
-    }
-    catch(error){
+    } catch (error) {
+        console.error(error);
         res.status(500).json({ error: error.message });
     }
 }
 
-//Verification of token
-exports.verifyToken = (req,res, next) => {
+// Verification of token
+exports.verifyToken = (req, res, next) => {
     const token = req.header("x-auth-token");
 
-    if(!token){
-        return res.status(401).json({ msg: "No token, authorization denied"})
+    if (!token) {
+        return res.status(401).json({ msg: "No token, authorization denied" });
     }
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, JWT_KEY);
         req.user = decoded.user;
         next();
-      } catch (error) {
+    } catch (error) {
+        console.error(error);
         res.status(401).json({ msg: "Token is not valid" });
-      }
+    }
 };
-
