@@ -22,7 +22,7 @@ export const Login = () => {
                 },
             };
             const body = JSON.stringify(formData);
-            const res = await axios.post('/api/auth/login', body, config);
+            const res = await axios.post('http://localhost:3000/api/auth/login', body, config);
             console.log(res.data); // Handle response as needed
         } catch (error) {
             console.error(error.response.data); // Handle error as needed
