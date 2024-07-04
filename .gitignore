@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+package-lock.json
+yarn.lock
+
+# dotenv environment variables file
+.env
+
+# Production build
+/build
+
+# IDE files
+.vscode/
+*.idea/
+
+# macOS
+.DS_Store
+
+# Editor temporary files
+*.swp
+*~
+
+# Jest coverage output
+coverage/
+
+# Ignore npm debug log
+npm-debug.log*
