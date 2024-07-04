@@ -10,12 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "apexcharts": "^3.49.2",
     "axios": "^1.7.2",
+    "chart.js": "^4.4.3",
+    "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.0"
   },
   "devDependencies": {
+    "@types/chart.js": "^2.9.41",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
