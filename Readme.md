@@ -19,7 +19,7 @@ BudgetBuddy is a budget tracking app that helps you manage your finances effecti
 ![Add Income](./client/public/Add_Income.png)
 
 
-### Category-wise Expenses
+### All Transactions
 ![All Transactions](./client/public/All_transactions.png)
 
 
