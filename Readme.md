@@ -67,7 +67,6 @@ Make sure you have the following installed:
     MONGODB_URL=your_mongodb_connection_string
     JWT_KEY=your_jwt_secret_key
 
-
 4. Start the development server:
     ```sh
     npm start
