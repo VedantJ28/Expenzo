@@ -24,7 +24,7 @@ const IncomeBarChart = ({ data, chartHeight }) => {
       dataLabels: {
         enabled: false,
       },
-      colors: ['#4CAF50'],
+      colors: ['#fcd34d'],
       plotOptions: {
         bar: {
           columnWidth: '40%',

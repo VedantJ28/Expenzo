@@ -25,7 +25,7 @@ export const Sidebar = () => {
             </div>
             <div className="flex flex-col justify-between flex-1 mt-6">
                 <nav>
-                    <a className="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg hover:dark:bg-gray-800 dark:text-gray-400" href="#">
+                    <a className="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg dark:hover:text-gray-200 hover:dark:bg-gray-800 dark:text-gray-400" href="#">
                         <svg
                             className="w-5 h-5"
                             viewBox="0 0 24 24"

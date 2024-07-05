@@ -29,7 +29,7 @@ export const Dashboard = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 container mx-auto py-8">
-      <h1 className="text-5xl font-semibold text-center mb-8">Dashboard</h1>
+      <h1 className="text-5xl dark:text-gray-200 text-gray-800 font-semibold text-center mb-8">Dashboard</h1>
 
       <div className="container mx-auto flex flex-col md:flex-row justify-center gap-8 mb-8 px-4 sm:px-8">
         <Card title="Total Income" amount={totalIncome} />
