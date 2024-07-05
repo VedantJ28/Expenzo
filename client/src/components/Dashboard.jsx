@@ -6,15 +6,6 @@ import TransactionsTable from './TransactionsTable';
 import PropTypes from 'prop-types';
 
 export const Dashboard = ({user}) => {
-  const totalIncome = user.totalIncome ;
-  const totalExpense = user.totalExpense;
-  const balance = totalIncome - totalExpense;
-
-  const incomeData = [
-    { category: 'January', amount: 500 },
-    { category: 'February', amount: 700 },
-    { category: 'March', amount: 1500 },
-  ];
 
   const [donutHeight, setDonutHeight] = useState(0);
   const donutChartRef = useRef(null);
@@ -30,9 +21,9 @@ export const Dashboard = ({user}) => {
       <h1 className="text-5xl dark:text-gray-200 text-gray-800 font-semibold text-center mb-8">Dashboard</h1>
 
       <div className="container mx-auto flex flex-col md:flex-row justify-center gap-8 mb-8 px-4 sm:px-8">
-        <Card title="Total Income" amount={totalIncome} />
-        <Card title="Total Expense" amount={totalExpense} />
-        <Card title="Balance" amount={balance} />
+        <Card title="Total Income"  user={user} />
+        <Card title="Total Expense" user={user} />
+        <Card title="Balance" user={user} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
@@ -42,7 +33,7 @@ export const Dashboard = ({user}) => {
           </div>
         </div>
         <div className="col-span-2">
-          <IncomeBarChart data={incomeData} chartHeight={donutHeight} />
+          <IncomeBarChart user={user} chartHeight={donutHeight} />
         </div>
       </div>
 

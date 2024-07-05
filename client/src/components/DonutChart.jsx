@@ -12,7 +12,13 @@ const DonutChart = ({ user }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/transactions/categoryExpenses/${user._id}`);
-        setCategoryData(response.data);
+        const data = response.data;
+
+        if (data.length === 0) {
+          setCategoryData([{ _id: 'No Expenses', totalAmount: 100 }]);
+        } else {
+          setCategoryData(data);
+        }
       } catch (error) {
         console.error('Error fetching category data:', error);
       }
@@ -33,6 +39,8 @@ const DonutChart = ({ user }) => {
     }
 
     if (categoryData.length > 0) {
+      const colors = ['#2563EB', '#10B981', '#F59E0B', '#FF7A5A', '#4F46E5'];
+
       const ctx = chartContainer.current.getContext('2d');
       chartInstance.current = new Chart(ctx, {
         type: 'doughnut',
@@ -42,8 +50,8 @@ const DonutChart = ({ user }) => {
             {
               label: 'Category-wise Expenses',
               data: categoryData.map((item) => item.totalAmount),
-              backgroundColor: categoryData.map((item) =>
-                item._id === 'No Expenses' ? '#FF0000' : ['#2563EB', '#10B981', '#F59E0B', '#FF7A5A', '#4F46E5']
+              backgroundColor: categoryData.map((item, index) =>
+                item._id === 'No Expenses' ? '#FF0000' : colors[index % colors.length]
               ),
             },
           ],
@@ -58,7 +66,7 @@ const DonutChart = ({ user }) => {
             tooltip: {
               callbacks: {
                 label: function (tooltipItem) {
-                  return tooltipItem.label + ': $' + tooltipItem.raw.toLocaleString();
+                  return tooltipItem.label + ': ₹' + tooltipItem.raw.toLocaleString();
                 },
               },
             },

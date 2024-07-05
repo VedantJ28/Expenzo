@@ -1,25 +1,41 @@
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
 import ApexCharts from 'apexcharts';
+import axios from 'axios';
 
-const IncomeBarChart = ({ data, chartHeight }) => {
+const IncomeBarChart = ({ user, chartHeight }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/transactions/categoryIncome/${user._id}`);
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching category data:', error);
+      }
+    };
+
+    fetchData();
+  }, [user._id]);
+
   useEffect(() => {
     const chartConfig = {
       series: [
         {
           name: 'Income',
-          data: data.map(item => item.amount),
+          data: data.map(item => item.totalAmount),
         },
       ],
       chart: {
         type: 'bar',
-        height: chartHeight, // Dynamically set the height based on prop
+        height: chartHeight,
         toolbar: {
           show: false,
         },
       },
       title: {
-        show: '',
+        show: false,
       },
       dataLabels: {
         enabled: false,
@@ -46,7 +62,7 @@ const IncomeBarChart = ({ data, chartHeight }) => {
             fontWeight: 400,
           },
         },
-        categories: data.map(item => item.category),
+        categories: data.map(item => item._id),
       },
       yaxis: {
         labels: {
@@ -56,7 +72,7 @@ const IncomeBarChart = ({ data, chartHeight }) => {
             fontFamily: 'inherit',
             fontWeight: 400,
           },
-          formatter: (value) => `₹ ${value}`, // Format y-axis to show rupees
+          formatter: value => `₹ ${value}`,
         },
       },
       grid: {
@@ -84,20 +100,15 @@ const IncomeBarChart = ({ data, chartHeight }) => {
     const chart = new ApexCharts(document.querySelector('#income-bar-chart'), chartConfig);
     chart.render();
 
-    return () => chart.destroy(); // Clean up the chart on component unmount
+    return () => chart.destroy();
   }, [data, chartHeight]);
 
   return <div id="income-bar-chart" />;
 };
 
 IncomeBarChart.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      amount: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-  chartHeight: PropTypes.number.isRequired, // Prop type for chart height
+  user: PropTypes.object.isRequired,
+  chartHeight: PropTypes.number.isRequired,
 };
 
 export default IncomeBarChart;

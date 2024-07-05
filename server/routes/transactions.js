@@ -175,5 +175,25 @@ router.get('/categoryExpenses/:userId', async (req, res) => {
   }
 });
 
+router.get('/categoryIncome/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'Invalid user ID' });
+    }
+
+    const categoryData = await Transaction.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(userId), type: 'income' } },
+      { $group: { _id: '$category', totalAmount: { $sum: '$amount' } } },
+    ]);
+
+    res.json(categoryData);
+  } catch (err) {
+    console.error('Error fetching category income:', err);
+    res.status(500).json({ message: 'Server Error', error: err.message });
+  }
+});
+
 // Export the router
 module.exports = router;
