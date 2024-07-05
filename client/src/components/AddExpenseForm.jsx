@@ -1,11 +1,59 @@
-export const AddExpenseForm = () => {
+import { useState } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+
+export const AddExpenseForm = ({ user }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    category: '',
+    amount: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { title, category, amount } = formData;
+    if (!title || !category || !amount) {
+      alert('All fields are required');
+      return;
+    }
+
+    const transactionData = {
+      userId: user._id,
+      title,
+      amount: parseFloat(amount),
+      type: 'expense',
+      category,
+    };
+
+    try {
+      const response = await axios.post('/api/expenses', transactionData);
+      console.log(response.data);
+      // Optionally, you can reset the form or give feedback to the user
+      setFormData({
+        title: '',
+        category: '',
+        amount: '',
+      });
+      alert('Expense added successfully');
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || 'Failed to add expense');
+    }
+  };
+
   return (
-    <>
-        <section className="bg-white dark:bg-gray-900 py-4 md:py-8">
-        <h1 className="text-5xl dark:text-gray-200 text-gray-800 font-semibold text-center mb-8">Add New Expense</h1>
+    <section className="bg-white dark:bg-gray-900 py-4 md:py-8">
+      <h1 className="text-5xl dark:text-gray-200 text-gray-800 font-semibold text-center mb-8">Add New Expense</h1>
       <div className="py-4 px-4 mx-auto max-w-2xl bg-gray-200 dark:bg-gray-800 shadow-md rounded-lg">
-        
-        <form action="#">
+        <form onSubmit={handleSubmit}>
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <div className="sm:col-span-2">
               <label
@@ -18,8 +66,10 @@ export const AddExpenseForm = () => {
                 type="text"
                 name="title"
                 id="title"
+                value={formData.title}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Type income title"
+                placeholder="Type expense title"
                 required
               />
             </div>
@@ -31,14 +81,18 @@ export const AddExpenseForm = () => {
                 Category
               </label>
               <select
+                name="category"
                 id="category"
+                value={formData.category}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
               >
-                <option value="" selected disabled>Select category</option>
-                <option value="Salary">Food</option>
-                <option value="Business">Rent</option>
-                <option value="Investment">Loan</option>
-                <option value="Freelance">Travel</option>
+                <option value="" disabled>Select category</option>
+                <option value="Food">Food</option>
+                <option value="Rent">Rent</option>
+                <option value="Loan">Loan</option>
+                <option value="Travel">Travel</option>
                 <option value="Other">Other</option>
               </select>
             </div>
@@ -53,6 +107,8 @@ export const AddExpenseForm = () => {
                 type="number"
                 name="amount"
                 id="amount"
+                value={formData.amount}
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Enter amount"
                 required
@@ -68,6 +124,11 @@ export const AddExpenseForm = () => {
         </form>
       </div>
     </section>
-    </>
-  )
-}
+  );
+};
+
+AddExpenseForm.propTypes = {
+  user: PropTypes.object.isRequired,
+};
+
+

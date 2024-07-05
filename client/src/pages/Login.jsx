@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-export const Login = () => {
+export const Login = ({ setUser }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
 
     const { email, password } = formData;
+    const navigate = useNavigate();
 
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,9 +26,30 @@ export const Login = () => {
             };
             const body = JSON.stringify(formData);
             const res = await axios.post('http://localhost:3000/api/auth/login', body, config);
-            console.log(res.data); // Handle response as needed
+            
+            if (!res.data) {
+                throw new Error('Login request failed or response data is undefined.');
+            }
+
+            localStorage.setItem('token', res.data.token);
+            const userRes = await axios.get('http://localhost:3000/api/auth/me', {
+                headers: {
+                    'x-auth-token': res.data.token,
+                },
+            });
+
+            setUser(userRes.data);
+
+            navigate('/main');
+
         } catch (error) {
-            console.error(error.response.data); // Handle error as needed
+            console.error(error); // Log the error for debugging
+            // Handle error appropriately, such as showing a message to the user
+            if (error.response) {
+                console.error(error.response.data); // Log the response error data
+            } else {
+                console.error(error.message); // Log the error message
+            }
         }
     };
 
@@ -178,4 +202,8 @@ export const Login = () => {
 
         </>
     )
-}
+};
+
+Login.propTypes = {
+    setUser: PropTypes.func.isRequired,
+  };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const AllTransactions = () => {
+export const AllTransactions = () => {
   // Sample data for transactions
   const [transactions] = useState([
     {
@@ -126,4 +126,3 @@ const AllTransactions = () => {
   );
 };
 
-export default AllTransactions;

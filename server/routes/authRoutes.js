@@ -8,6 +8,8 @@ router.post("/register", authController.register);
 // Login route
 router.post("/login", authController.login);
 
+router.get("/me", authController.verifyToken, authController.getMe);
+
 // Protected route example
 router.get("/protected", authController.verifyToken, (req, res) => {
   res.json({ msg: "This is a protected route", user: req.user });

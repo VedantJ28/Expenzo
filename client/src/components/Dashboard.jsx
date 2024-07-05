@@ -3,10 +3,11 @@ import Card from './Card';
 import DonutChart from './DonutChart';
 import IncomeBarChart from './IncomeBarChart';
 import TransactionsTable from './TransactionsTable';
+import PropTypes from 'prop-types';
 
-export const Dashboard = () => {
-  const totalIncome = 3000;
-  const totalExpense = 1200;
+export const Dashboard = ({user}) => {
+  const totalIncome = user.totalIncome ;
+  const totalExpense = user.totalExpense;
   const balance = totalIncome - totalExpense;
 
   const categories = ['Food', 'Utilities', 'Transportation'];
@@ -53,4 +54,7 @@ export const Dashboard = () => {
       </div>
     </div>
   );
+};
+Dashboard.propTypes = {
+  user: PropTypes.object,
 };
