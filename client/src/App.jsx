@@ -4,21 +4,19 @@ import { Signup } from './pages/Signup';
 import { Main } from './pages/Main';
 import { useState } from 'react';
 
-
 function App() {
   const [user, setUser] = useState(null);
+
   return (
-    <>  
     <Router>
       <Routes>
-        <Route path='/login' element = { <Login setUser={setUser}/> }></Route>
-        <Route path='/signup' element = { <Signup/> }></Route>
-        <Route path='/main' element = { <Main user={user} /> }></Route>
+        <Route path='/login' element={<Login setUser={setUser} />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/main' element={<Main user={user} setUser={setUser} />} />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
