@@ -61,7 +61,14 @@ Make sure you have the following installed:
     ```sh
     npm i
 
-3. Start the development server:
+3. Create a .env file in the server directory with the following content:
+    ```sh
+    PORT=your_port_number
+    MONGODB_URL=your_mongodb_connection_string
+    JWT_KEY=your_jwt_secret_key
+
+
+4. Start the development server:
     ```sh
     npm start
 
