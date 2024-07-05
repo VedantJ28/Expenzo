@@ -8,7 +8,7 @@ const TransactionsTable = ({ user }) => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/transactions/recent', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/transactions/recent`, {
           params: {
             userId: user._id,
           },

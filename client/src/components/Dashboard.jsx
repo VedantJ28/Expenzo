@@ -25,7 +25,7 @@ export const Dashboard = ({user}) => {
   useEffect(() => {
     const fetchFinancialData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/users/${user._id}/financials`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}/financials`);
         const data = await response.json();
         setFinancialData(data);
 

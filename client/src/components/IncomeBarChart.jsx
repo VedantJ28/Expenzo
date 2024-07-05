@@ -9,7 +9,7 @@ const IncomeBarChart = ({ user, chartHeight }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/transactions/categoryIncome/${user._id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/transactions/categoryIncome/${user._id}`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching category data:', error);

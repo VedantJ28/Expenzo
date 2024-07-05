@@ -24,7 +24,7 @@ export const Signup = () => {
                 },
             };
             const body = JSON.stringify(formData);
-            const res = await axios.post('http://localhost:3000/api/auth/register', body, config);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, body, config);
             console.log(res.data);
             alert("Signup Successfull");
             setFormData(

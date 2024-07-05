@@ -40,14 +40,14 @@ export const Login = ({ setUser }) => {
                 },
             };
             const body = JSON.stringify(formData);
-            const res = await axios.post('http://localhost:3000/api/auth/login', body, config);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, body, config);
 
             if (!res.data) {
                 throw new Error('Login request failed or response data is undefined.');
             }
 
             localStorage.setItem('token', res.data.token);
-            const userRes = await axios.get('http://localhost:3000/api/auth/me', {
+            const userRes = await axios.get('${import.meta.env.VITE_API_URL}/auth/me', {
                 headers: {
                     'x-auth-token': res.data.token,
                 },
