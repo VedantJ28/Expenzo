@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import {Sidebar} from '../components/Sidebar';
 import {Dashboard} from '../components/Dashboard';
 import {AddIncomeForm} from '../components/AddIncomeForm';
-import AddExpenseForm from '../components/AddExpenseForm';
+import {AddExpenseForm} from '../components/AddExpenseForm';
 import {AllTransactions} from '../components/AllTransactions';
 import {Footer} from '../components/Footer';
 import PropTypes from 'prop-types';

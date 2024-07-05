@@ -34,7 +34,7 @@ export const AddExpenseForm = ({ user }) => {
     };
 
     try {
-      const response = await axios.post('/api/expenses', transactionData);
+      const response = await axios.post('http://localhost:3000/api/transactions/expenses', transactionData);
       console.log(response.data);
       // Optionally, you can reset the form or give feedback to the user
       setFormData({
