@@ -47,7 +47,7 @@ export const Login = ({ setUser }) => {
             }
 
             localStorage.setItem('token', res.data.token);
-            const userRes = await axios.get('${import.meta.env.VITE_API_URL}/auth/me', {
+            const userRes = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
                 headers: {
                     'x-auth-token': res.data.token,
                 },
