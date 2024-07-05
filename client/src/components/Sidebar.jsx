@@ -1,6 +1,11 @@
 import DarkModeToggle from "./DarkModeToggle";
+import PropTypes from 'prop-types';
 
-export const Sidebar = () => {
+export const Sidebar = ({ onSelectComponent }) => {
+
+    const handleComponentClick = (component) => {
+        onSelectComponent(component);
+    };
 
     return (
         <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-950">
@@ -25,7 +30,7 @@ export const Sidebar = () => {
             </div>
             <div className="flex flex-col justify-between flex-1 mt-6">
                 <nav>
-                    <a className="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg dark:hover:text-gray-200 hover:dark:bg-gray-800 dark:text-gray-400" href="/main">
+                    <a className="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg dark:hover:text-gray-200 hover:dark:bg-gray-800 dark:text-gray-400" href="#" onClick={() => handleComponentClick('dashboard')}>
                         <svg
                             className="w-5 h-5"
                             viewBox="0 0 24 24"
@@ -42,7 +47,7 @@ export const Sidebar = () => {
                         </svg>
                         <span className="mx-4 font-medium">Dashboard</span>
                     </a>
-                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="/addincome">
+                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#" onClick={() => handleComponentClick('addIncome')}>
                         <svg
                             className="w-5 h-5"
                             viewBox="0 0 24 24"
@@ -53,7 +58,7 @@ export const Sidebar = () => {
                         </svg>
                         <span className="mx-4 font-medium">Add Income</span>
                     </a>
-                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#" onClick={() => handleComponentClick('addExpense')}>
                         <svg
                             className="w-5 h-5"
                             viewBox="0 0 24 24"
@@ -64,7 +69,7 @@ export const Sidebar = () => {
                         </svg>
                         <span className="mx-4 font-medium">Add Expense</span>
                     </a>
-                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+                    <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#" onClick={() => handleComponentClick('alltransactions')} >
                         <svg
                             className="w-5 h-5"
                             viewBox="0 0 24 24"
@@ -97,4 +102,7 @@ export const Sidebar = () => {
            
         </aside>
     );
+};
+Sidebar.propTypes = {
+    onSelectComponent: PropTypes.func.isRequired,
 };

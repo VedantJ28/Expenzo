@@ -4,8 +4,7 @@ import { Signup } from './pages/Signup';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { Main } from './pages/Main';
-import { AddIncomePage } from './pages/AddIncomePage';
-import { AddExpensePage } from './pages/AddExpensePage';
+
 
 function App() {
   return (
@@ -17,8 +16,6 @@ function App() {
         <Route path='/sidebar' element = { <Sidebar/> }></Route>
         <Route path='/dashboard' element = { <Dashboard/> }></Route>
         <Route path='/main' element = { <Main/> }></Route>
-        <Route path='addincome' element = { <AddIncomePage/> }></Route>
-        <Route path='addexpense' element = { <AddExpensePage/> }></Route>
       </Routes>
     </Router>
     </>
