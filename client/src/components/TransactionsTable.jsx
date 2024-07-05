@@ -20,9 +20,9 @@ const TransactionsTable = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Date</th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-gray-800">
+          <tbody className="bg-white dark:bg-gray-800 ">
             {transactions.map((transaction, index) => (
-              <tr key={transaction.id} className="border-b border-gray-200 dark:border-gray-700">
+              <tr key={transaction.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 hover:dark:bg-gray-900">
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">{index + 1}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">{transaction.type}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-200">{transaction.category}</td>
