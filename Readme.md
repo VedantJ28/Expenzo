@@ -35,25 +35,35 @@ Make sure you have the following installed:
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/BudgetBuddy.git
+   https://github.com/VedantJ28/BudgetBudddy.git
 
 2. Install dependencies for both the client and server.
 
 ### Running the fronend
 1. Navigate to the client directory:
-cd client
+    ```sh
+    cd client
+
 2. Install dependencies:
-npm i
+    ```sh
+    npm i
+
 3. Start the development server:
-npm run dev
+    ```sh
+    npm run dev
 
 ### Running the backend
 1. Navigate to the server directory:
-cd server
+    ```sh
+    cd server
+
 2. Install dependencies:
-npm i
+    ```sh
+    npm i
+
 3. Start the development server:
-npm start
+    ```sh
+    npm start
 
 ## Usage
 Once both the frontend and backend servers are running, you can start using BudgetBuddy by navigating to the frontend URL provided by Vite. You can then begin adding your income and expenses, and view your budget insights.
