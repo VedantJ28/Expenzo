@@ -89,11 +89,11 @@ export const AddExpenseForm = ({ user }) => {
                 required
               >
                 <option value="" disabled>Select category</option>
-                <option value="Food">Food</option>
-                <option value="Rent">Rent</option>
-                <option value="Loan">Loan</option>
-                <option value="Travel">Travel</option>
-                <option value="Other">Other</option>
+                <option value="food">Food</option>
+                <option value="rent">Rent</option>
+                <option value="loan">Loan</option>
+                <option value="travel">Travel</option>
+                <option value="other">Other</option>
               </select>
             </div>
             <div className="w-full">

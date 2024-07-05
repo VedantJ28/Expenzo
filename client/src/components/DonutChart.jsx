@@ -1,75 +1,84 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'chart.js/auto';
+import axios from 'axios';
 
-const DonutChart = ({ categories, expenses }) => {
+const DonutChart = ({ user }) => {
+  const [categoryData, setCategoryData] = useState([]);
   const chartContainer = useRef(null);
   const chartInstance = useRef(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/transactions/categoryExpenses/${user._id}`);
+        setCategoryData(response.data);
+      } catch (error) {
+        console.error('Error fetching category data:', error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+    };
+  }, [user._id]);
 
   useEffect(() => {
     if (chartInstance.current) {
       chartInstance.current.destroy();
     }
 
-    const ctx = chartContainer.current.getContext('2d');
-    chartInstance.current = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: categories,
-        datasets: [{
-          label: 'Category-wise Expenses',
-          data: expenses,
-          backgroundColor: [
-            '#2563EB',
-            '#10B981',
-            '#F59E0B',
-            // Add more colors as needed
+    if (categoryData.length > 0) {
+      const ctx = chartContainer.current.getContext('2d');
+      chartInstance.current = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: categoryData.map((item) => item._id),
+          datasets: [
+            {
+              label: 'Category-wise Expenses',
+              data: categoryData.map((item) => item.totalAmount),
+              backgroundColor: categoryData.map((item) =>
+                item._id === 'No Expenses' ? '#FF0000' : ['#2563EB', '#10B981', '#F59E0B', '#FF7A5A', '#4F46E5']
+              ),
+            },
           ],
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+            },
+            tooltip: {
+              callbacks: {
+                label: function (tooltipItem) {
+                  return tooltipItem.label + ': $' + tooltipItem.raw.toLocaleString();
+                },
+              },
+            },
           },
-          tooltip: {
-            callbacks: {
-              label: function (tooltipItem) {
-                return tooltipItem.label + ': $' + tooltipItem.raw.toLocaleString();
-              }
-            }
-          }
-        }
-      }
-    });
-
-    return () => {
-      chartInstance.current.destroy();
-    };
-  }, [categories, expenses]);
+        },
+      });
+    }
+  }, [categoryData]);
 
   return (
     <div className="py-6">
       <div className="relative" style={{ height: '300px' }}>
         <canvas ref={chartContainer} className="w-full h-full"></canvas>
-        {/* <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Category-wise Expenses</h3>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Total Expenses: ${expenses.reduce((acc, val) => acc + val, 0)}
-            </p>
-          </div>
-        </div> */}
       </div>
     </div>
   );
 };
 
 DonutChart.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default DonutChart;

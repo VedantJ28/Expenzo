@@ -10,9 +10,6 @@ export const Dashboard = ({user}) => {
   const totalExpense = user.totalExpense;
   const balance = totalIncome - totalExpense;
 
-  const categories = ['Food', 'Utilities', 'Transportation'];
-  const expenses = [500, 300, 400];
-
   const incomeData = [
     { category: 'January', amount: 500 },
     { category: 'February', amount: 700 },
@@ -41,7 +38,7 @@ export const Dashboard = ({user}) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div className="col-span-1">
           <div ref={donutChartRef}>
-            <DonutChart categories={categories} expenses={expenses} />
+            <DonutChart user={user}/>
           </div>
         </div>
         <div className="col-span-2">
@@ -50,7 +47,7 @@ export const Dashboard = ({user}) => {
       </div>
 
       <div className="mx-auto">
-        <TransactionsTable />
+        <TransactionsTable user={user} />
       </div>
     </div>
   );

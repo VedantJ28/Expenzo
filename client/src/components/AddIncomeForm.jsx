@@ -34,7 +34,7 @@ export const AddIncomeForm = ({ user }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/api/transactions/', transactionData);
+      const response = await axios.post('http://localhost:3000/api/transactions/income', transactionData);
       console.log(response.data);
       // Optionally, you can reset the form or give feedback to the user
       setFormData({
