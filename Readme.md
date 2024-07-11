@@ -1,6 +1,6 @@
-# BudgetBuddy
+# Expenzo
 
-BudgetBuddy is a budget tracking app that helps you manage your finances effectively. You can add income and expenses, view category-wise expenses in a donut chart, see category-wise income in a bar graph, and view all transactions. It also shows your total income, total expenses, and balance.
+Expenzo is a budget tracking app that helps you manage your finances effectively. You can add income and expenses, view category-wise expenses in a donut chart, see category-wise income in a bar graph, and view all transactions. It also shows your total income, total expenses, and balance.
 
 ## Features
 
@@ -9,19 +9,6 @@ BudgetBuddy is a budget tracking app that helps you manage your finances effecti
 - View category-wise income in a bar graph
 - View all transactions
 - Display total income, total expenses, and balance
-
-## Screenshots
-
-### Dashboard
-![Dashboard](./client/public/Dasboard.png)
-
-### Add Income
-![Add Income](./client/public/Add_Income.png)
-
-
-### All Transactions
-![All Transactions](./client/public/All_transactions.png)
-
 
 ## Technologies Used
 
@@ -48,7 +35,7 @@ Make sure you have the following installed:
 
 1. Clone the repository:
    ```sh
-   https://github.com/VedantJ28/BudgetBudddy.git
+   https://github.com/VedantJ28/Expenzo.git
 
 2. Install dependencies for both the client and server.
 
@@ -85,7 +72,7 @@ Make sure you have the following installed:
     npm start
 
 ## Usage
-Once both the frontend and backend servers are running, you can start using BudgetBuddy by navigating to the frontend URL provided by Vite. You can then begin adding your income and expenses, and view your budget insights.
+Once both the frontend and backend servers are running, you can start using Expenzo by navigating to the frontend URL provided by Vite. You can then begin adding your income and expenses, and view your budget insights.
 
-# Happy budgeting with BudgetBuddy!
+# Happy budgeting with Expenzo!
 
