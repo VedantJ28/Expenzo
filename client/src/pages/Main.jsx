@@ -34,12 +34,15 @@ export const Main = ({ user, setUser }) => {
   };
 
   return user ? (
-    <div className="flex h-screen">
-      <div className="w-64 h-screen overflow-y-auto">
-        <Sidebar onSelectComponent={setSelectedComponent} user={user} onLogout={handleLogout} />
-      </div>
-      <div className="flex-1 flex flex-col overflow-y-auto dark:bg-gray-900">
-        <div className="flex-1">{renderComponent()}</div>
+    <div className="flex flex-col sm:flex-row sm:min-h-screen">
+      <Sidebar
+        className="sm:w-64 h-auto sm:h-screen md:w-64 md:h-screen  overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700"
+        onSelectComponent={setSelectedComponent}
+        user={user}
+        onLogout={handleLogout}
+      />
+      <div className="flex-1 h-auto sm:h-screen overflow-y-auto dark:bg-gray-950">
+        <div className="p-4">{renderComponent()}</div>
         <Footer />
       </div>
     </div>
@@ -52,3 +55,5 @@ Main.propTypes = {
   user: PropTypes.object,
   setUser: PropTypes.func.isRequired,
 };
+
+export default Main;
