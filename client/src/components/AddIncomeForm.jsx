@@ -50,7 +50,7 @@ export const AddIncomeForm = ({ user }) => {
   };
 
   return (
-    <section className="bg-white dark:bg-gray-900 py-4 md:py-8">
+    <section className="bg-white dark:bg-gray-950 py-4 md:py-8">
       <h1 className="text-5xl dark:text-gray-200 text-gray-800 font-semibold text-center mb-8">Add New Income</h1>
       <div className="py-4 px-4 mx-auto max-w-2xl bg-gray-200 dark:bg-gray-800 shadow-md rounded-lg">
         <form onSubmit={handleSubmit}>
